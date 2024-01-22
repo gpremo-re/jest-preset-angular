@@ -1,4 +1,4 @@
-import { DebugElement } from '@angular/core';
+import { DebugElement, input } from '@angular/core';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -13,7 +13,7 @@ describe('DashboardHeroComponent class only', () => {
   it('raises the selected event when clicked', () => {
     const comp = new DashboardHeroComponent();
     const hero: Hero = { id: 42, name: 'Test' };
-    comp.hero = hero;
+    comp.hero = input(hero);
 
     comp.selected.pipe(first()).subscribe((selectedHero: Hero) => expect(selectedHero).toBe(hero));
     comp.click();
@@ -39,8 +39,7 @@ describe('DashboardHeroComponent when tested directly', () => {
     heroEl = heroDe.nativeElement;
 
     expectedHero = { id: 42, name: 'Test Name' };
-
-    comp.hero = expectedHero;
+    fixture.componentRef.setInput('hero', expectedHero);
 
     fixture.detectChanges();
   });
